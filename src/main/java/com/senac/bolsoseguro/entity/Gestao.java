@@ -33,6 +33,10 @@ public class Gestao {
     @Transient
     private String usuarioNome;
 
+    public String getUsuarioNome() {
+        return usuario.getNome();
+    }
+
     @OneToMany(mappedBy = "gestao")
     private List<Gasto> gastos;
 

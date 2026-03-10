@@ -27,19 +27,43 @@ public class Gasto {
     @Transient
     private String gestaoNome;
 
+    public String getGestaoNome() {
+        return gestao.getNome();
+    }
+
     @Transient
     private String categoriaNome;
 
+    public String getCategoriaNome() {
+        return categoria.getNome();
+    }
 
     @ManyToOne
     @JoinColumn(name = "categoria_id",nullable = false)
     @JsonIgnore
     private Categoria categoria;
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+
     @ManyToOne
     @JoinColumn(name = "gestao_id",nullable = false)
     @JsonIgnore
     private Gestao gestao;
+
+    public Gestao getGestao() {
+        return gestao;
+    }
+
+    public void setGestao(Gestao gestao) {
+        this.gestao = gestao;
+    }
 
     public int getId() {
         return id;
