@@ -1,6 +1,7 @@
 package com.senac.bolsoseguro.service;
 
 import com.senac.bolsoseguro.dto.Request.UsuarioDTORequest;
+import com.senac.bolsoseguro.dto.Response.UsuarioDTOResponse;
 import com.senac.bolsoseguro.entity.Usuario;
 import com.senac.bolsoseguro.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
@@ -28,15 +29,27 @@ public class UsuarioService {
 
     public List<Usuario> listarUsuarios(){return usuarioRepository.findAll();}
 
-    public Usuario criarUsuario(UsuarioDTORequest dto) {
+//    public Usuario criarUsuario(UsuarioDTORequest dto) {
+//        // 1. Converte o DTO recebido para a Entidade Usuario
+//        Usuario usuario = modelMapper.map(dto, Usuario.class);
+//
+//        // 2. Define os campos automáticos que não vêm do Request
+//        usuario.setData(LocalDateTime.now()); //
+//        usuario.setStatus(1); // 1 para Ativo por padrão
+//
+//        // 3. Salva no banco usando o Repository
+//        return usuarioRepository.save(usuario);  //está retornando um usuário e nao um Response
+//    }
+
+    public UsuarioDTOResponse criarUsuario(UsuarioDTORequest dto) {
         // 1. Converte o DTO recebido para a Entidade Usuario
         Usuario usuario = modelMapper.map(dto, Usuario.class);
 
         // 2. Define os campos automáticos que não vêm do Request
         usuario.setData(LocalDateTime.now()); //
         usuario.setStatus(1); // 1 para Ativo por padrão
-
+        Usuario usuarioSave = usuarioRepository.save(usuario);
         // 3. Salva no banco usando o Repository
-        return usuarioRepository.save(usuario);  //está retornando um usuário e nao um Response
+        return modelMapper.map(usuarioSave, UsuarioDTOResponse.class);
     }
 }
