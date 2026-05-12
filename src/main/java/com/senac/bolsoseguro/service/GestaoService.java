@@ -33,14 +33,15 @@ public class GestaoService {
 
     public List<Gestao> listarGestao(){ return gestaoRepository.findAll();}
 
-    public GestaoDTOResponse criarGestao(GestaoDTORequest dto) {
+    public GestaoDTOResponse criarGestao(int usuarioId,GestaoDTORequest dto) {
         // 1. Validar se o usuário existe (Gestao precisa de um dono)
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
 
         // 2. Converter DTO para Entity
         Gestao gestao = modelMapper.map(dto, Gestao.class);
-
+        System.out.println("ID da Gestão após ModelMapper: " + gestao.getId());
+        System.out.println("Nome da Gestão: " + gestao.getNome());
 
         gestao.setUsuario(usuario);
         gestao.setDataCriacao(LocalDateTime.now());

@@ -9,16 +9,10 @@ public class GestaoDTORequest {
     private int periodo;
     private LocalDate dataInicio;
     private LocalDate dataFim;
-    private int usuarioId;
 
 
-    public int getUsuarioId() {
-        return usuarioId;
-    }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
-    }
+
 
     public String getNome() {
         return nome;
