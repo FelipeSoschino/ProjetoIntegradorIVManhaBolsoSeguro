@@ -13,6 +13,16 @@ public class Categoria {
     private int id;
     @Column(name = "categoria_nome",nullable = false)
     private String nome;
+    @Column(name = "categoria_status",nullable = false)
+    private int status = 1;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     @OneToMany(mappedBy = "categoria")
     private List<Gasto> gastos;

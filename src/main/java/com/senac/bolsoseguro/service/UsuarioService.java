@@ -17,14 +17,14 @@ import java.util.List;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository,ModelMapper modelMapper) {
         this.usuarioRepository = usuarioRepository;
-
+        this.modelMapper = modelMapper;
     }
 
     public List<Usuario> listarUsuarios(){return usuarioRepository.findAll();}
@@ -51,5 +51,10 @@ public class UsuarioService {
         Usuario usuarioSave = usuarioRepository.save(usuario);
         // 3. Salva no banco usando o Repository
         return modelMapper.map(usuarioSave, UsuarioDTOResponse.class);
+    }
+
+
+    public void apagarUsuario(Integer usuarioId) {
+        this.usuarioRepository.apagarUsuario(usuarioId);
     }
 }

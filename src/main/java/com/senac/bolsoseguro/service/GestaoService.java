@@ -18,16 +18,18 @@ import java.util.List;
 public class GestaoService {
 
     @Autowired
-    private GestaoRepository gestaoRepository;
+    private final GestaoRepository gestaoRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public GestaoService(GestaoRepository gestaoRepository) {
+    public GestaoService(GestaoRepository gestaoRepository,UsuarioRepository usuarioRepository,ModelMapper modelMapper) {
         this.gestaoRepository = gestaoRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.modelMapper = modelMapper;
     }
 
 

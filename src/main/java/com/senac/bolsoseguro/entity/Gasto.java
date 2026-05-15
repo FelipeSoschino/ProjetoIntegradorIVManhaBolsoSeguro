@@ -24,19 +24,19 @@ public class Gasto {
     private int status;
 
 
-    @Transient
-    private String gestaoNome;
-
-    public String getGestaoNome() {
-        return gestao.getNome();
-    }
-
-    @Transient
-    private String categoriaNome;
-
-    public String getCategoriaNome() {
-        return categoria.getNome();
-    }
+//    @Transient
+//    private String gestaoNome;
+//
+//    public String getGestaoNome() {
+//        return gestao.getNome();
+//    }
+//
+//    @Transient
+//    private String categoriaNome;
+//
+//    public String getCategoriaNome() {
+//        return categoria.getNome();
+//    }
 
     @ManyToOne
     @JoinColumn(name = "categoria_id",nullable = false)

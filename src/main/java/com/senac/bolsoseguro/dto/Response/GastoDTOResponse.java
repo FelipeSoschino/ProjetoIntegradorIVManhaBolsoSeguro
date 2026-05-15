@@ -3,18 +3,18 @@ package com.senac.bolsoseguro.dto.Response;
 import java.time.LocalDateTime;
 
 public class GastoDTOResponse {
-    private Long id;
+    private int id;
     private String nome;
     private double valor;
     private String descricao;
-    private String categoriaNome;
+    private String categoria;
     private LocalDateTime dataCriacao;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,11 +43,11 @@ public class GastoDTOResponse {
     }
 
     public String getCategoriaNome() {
-        return categoriaNome;
+        return categoria;
     }
 
-    public void setCategoriaNome(String categoriaNome) {
-        this.categoriaNome = categoriaNome;
+    public void setCategoriaNome(String categoria) {
+        this.categoria = categoria;
     }
 
     public LocalDateTime getDataCriacao() {
