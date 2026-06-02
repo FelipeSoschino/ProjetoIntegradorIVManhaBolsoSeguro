@@ -42,7 +42,7 @@ public class GestaoController {
 
     @DeleteMapping("deletar/{gestaoId}")
     @Operation(summary = "Remover gestao", description = "Endpoint para remover uma gestao dado seu ID")
-    public void apagarGestao(@PathVariable("usuarioId") Integer gestaoId){
+    public void apagarGestao(@PathVariable("gestaoId") Integer gestaoId){
         this.gestaoService.apagarGestao(gestaoId);
     }
 

@@ -1,6 +1,7 @@
 package com.senac.bolsoseguro.service;
 
 import com.senac.bolsoseguro.dto.Request.GastoDTORequest;
+import com.senac.bolsoseguro.dto.Request.GastoDTOUpdateRequest;
 import com.senac.bolsoseguro.dto.Response.GastoDTOResponse;
 import com.senac.bolsoseguro.entity.Categoria;
 import com.senac.bolsoseguro.entity.Gasto;
@@ -84,6 +85,27 @@ public class GastoService {
         return gastos.stream()
                 .map(gasto -> modelMapper.map(gasto, GastoDTOResponse.class))
                 .collect(Collectors.toList());
+    }
+    public GastoDTOResponse atualizarGasto(int id, GastoDTOUpdateRequest dto) {
+        // 1. Busca o Gasto existente (Mantém a gestão que já estava nele)
+        Gasto gastoExistente = gastoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Gasto não encontrado com o ID: " + id));
+
+        // 2. Busca a Categoria escolhida para garantir que ela existe no banco
+        Categoria novaCategoria = categoriaRepository.findById(dto.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + dto.getCategoriaId()));
+
+        // 3. Atualiza apenas os campos permitidos
+        gastoExistente.setNome(dto.getNome());
+        gastoExistente.setDescricao(dto.getDescricao());
+        gastoExistente.setValor(dto.getValor());
+        gastoExistente.setCategoria(novaCategoria); // Altera a categoria para a nova escolhida
+
+        // 4. Salva no banco de dados (A gestão original continua intacta no registro)
+        Gasto gastoAtualizado = gastoRepository.save(gastoExistente);
+
+        // 5. Retorna o DTO de resposta
+        return modelMapper.map(gastoAtualizado, GastoDTOResponse.class);
     }
 
     public void apagarGasto(Integer gastoId){this.gastoRepository.apagarGasto(gastoId);}

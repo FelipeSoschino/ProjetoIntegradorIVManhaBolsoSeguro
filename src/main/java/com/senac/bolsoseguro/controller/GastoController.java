@@ -1,8 +1,10 @@
 package com.senac.bolsoseguro.controller;
 
 import com.senac.bolsoseguro.dto.Request.GastoDTORequest;
+import com.senac.bolsoseguro.dto.Request.GastoDTOUpdateRequest;
 import com.senac.bolsoseguro.dto.Response.GastoDTOResponse;
 import com.senac.bolsoseguro.service.GastoService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,24 @@ public class GastoController {
 
         // Retorna a lista com o status HTTP 200 OK
         return ResponseEntity.ok(resposta);
+    }
+
+    @PutMapping("atualizar/{id}")
+    public ResponseEntity<GastoDTOResponse> atualizarGasto(
+            @PathVariable int id,
+            @Valid @RequestBody GastoDTOUpdateRequest dto
+    ) {
+        // Chama o service para processar a validação e atualização dos dados
+        GastoDTOResponse response = gastoService.atualizarGasto(id, dto);
+
+        // Retorna HTTP 200 OK com o DTO do gasto atualizado no corpo
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("deletar/{id}")
+    @Operation(summary = "Remover gasto", description = "Endpoint para remover uma gasto dado seu ID")
+    public void apagarGasto(@PathVariable("id") Integer gastoId){
+        this.gastoService.apagarGasto(gastoId);
     }
 
 }
