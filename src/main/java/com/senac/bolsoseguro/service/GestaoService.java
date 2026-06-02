@@ -56,5 +56,28 @@ public class GestaoService {
         return modelMapper.map(gestaoSalva, GestaoDTOResponse.class);
     }
 
+    public GestaoDTOResponse atualizarGestao(int id, GestaoDTORequest dto) {
+        // 1. Busca a gestão atual no banco ou lança um erro se não achar
+        Gestao gestaoExistente = gestaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Gestão não encontrada com o ID: " + id));
+
+        // 2. Atualiza os campos permitidos da entidade com os novos dados do DTO
+        gestaoExistente.setNome(dto.getNome());
+        gestaoExistente.setDataInicio(dto.getDataInicio());
+        gestaoExistente.setDataFim(dto.getDataFim());
+        gestaoExistente.setValorEstimado(dto.getValorEstimado());
+
+        // Opcional: Se você tiver cálculo de período baseado nas datas, refaça-o aqui
+        // gestaoExistente.setPeriodo(...);
+
+        // 3. Salva as alterações no banco de dados (o save faz UPDATE se o ID já existir)
+        Gestao gestaoAtualizada = gestaoRepository.save(gestaoExistente);
+
+        // 4. Retorna mapeado para o DTO de resposta
+        return modelMapper.map(gestaoAtualizada, GestaoDTOResponse.class);
+    }
+    public void apagarGestao(Integer gestaoId) {
+        this.gestaoRepository.apagarGestao(gestaoId);
+    }
 
 }

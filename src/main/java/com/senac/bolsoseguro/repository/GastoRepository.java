@@ -16,4 +16,7 @@ public interface GastoRepository extends JpaRepository<Gasto, Integer> {
     @Transactional
     @Query("SELECT g FROM Gasto g WHERE g.status >= 0 AND g.gestao.id = :gestaoId")
     List<Gasto> listarGastosPorGestaoId(@Param("gestaoId") Integer gestaoId);
+
+    @Query("UPDATE Gasto g SET g.status = -1 where g.id = :id")
+    void apagarGasto(@Param("id") Integer id);
 }

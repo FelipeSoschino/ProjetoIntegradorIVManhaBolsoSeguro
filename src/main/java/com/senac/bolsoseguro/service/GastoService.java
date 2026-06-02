@@ -86,4 +86,6 @@ public class GastoService {
                 .collect(Collectors.toList());
     }
 
+    public void apagarGasto(Integer gastoId){this.gastoRepository.apagarGasto(gastoId);}
+
 }

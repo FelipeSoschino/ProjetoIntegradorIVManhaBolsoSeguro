@@ -53,6 +53,18 @@ public class UsuarioService {
         return modelMapper.map(usuarioSave, UsuarioDTOResponse.class);
     }
 
+    public UsuarioDTOResponse atualizarUsuario(Integer usuarioId, UsuarioDTORequest usuarioDTORequest) {
+        Usuario usuario = this.usuarioRepository.listarUsuarioPorId(usuarioId);
+        if (usuario != null) {
+            modelMapper.map(usuarioDTORequest, usuario);
+            Usuario usuarioSave = this.usuarioRepository.save(usuario);
+            UsuarioDTOResponse usuarioDTOResponse = modelMapper.map(usuarioSave, UsuarioDTOResponse.class);
+            return usuarioDTOResponse;
+        } else {
+            return null;
+        }
+    }
+
 
     public void apagarUsuario(Integer usuarioId) {
         this.usuarioRepository.apagarUsuario(usuarioId);

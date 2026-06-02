@@ -42,4 +42,18 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTOResponse> criar(@Valid @RequestBody UsuarioDTORequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.criarUsuario(dto));
     }
+
+    @PutMapping("/atualizar/{usuarioId}")
+    @Operation(summary = "Atualizar Usuario",description = "Endpont para atualizar os dados de um Usuario")
+    public ResponseEntity<UsuarioDTOResponse> atualizarUsuario(@PathVariable("usuarioId")Integer usuarioId,
+                                                               @RequestBody UsuarioDTORequest usuarioDTORequest){
+        return ResponseEntity.ok(this.usuarioService.atualizarUsuario(usuarioId,usuarioDTORequest));
+    }
+
+
+    @DeleteMapping("deletar/{usuarioId}")
+    @Operation(summary = "Remover usuario", description = "Endpoint para remover um usuario dado seu ID")
+    public void apagarUsuario(@PathVariable("usuarioId") Integer usuarioId){
+        this.usuarioService.apagarUsuario(usuarioId);
+    }
 }
