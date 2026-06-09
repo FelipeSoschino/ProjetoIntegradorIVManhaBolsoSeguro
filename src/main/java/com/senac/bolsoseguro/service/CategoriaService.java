@@ -36,4 +36,8 @@ public class CategoriaService {
     }
 
     public List<Categoria> listarCategorias(){return categoriaRepository.findAll();}
+
+    public void apagarCategoria(Integer usuarioId) {
+        this.categoriaRepository.apagarCategoria(usuarioId);
+    }
 }
